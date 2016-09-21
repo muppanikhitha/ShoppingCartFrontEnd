@@ -1,0 +1,58 @@
+package com.niit.shoppngcart.util;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+public class FileUtil {
+	 public static String upload(String path, MultipartFile file, String fileName) {
+		 if (!file.isEmpty()) {
+			 InputStream inputStream = null;
+			 OutputStream outputStream = null;
+			 if(file.getSize()>0){
+				 try{
+					 inputStream = file.getInputStream();
+					 outputStream = new FileOutputStream(path + fileName);
+					 int readBytes = 0;
+					 byte[] buffer = new byte[1024];
+					 while((readBytes = inputStream.read(buffer, 0 , 1024)) != -1){
+						 outputStream.write(buffer,0, readBytes);
+					 }
+				 }catch (IOException e){
+					 // TODO Auto-generated catch block
+					 e.printStackTrace();
+					 return "IO Exception";
+				 }finally{
+					 try{
+						 outputStream.close();
+						 inputStream.close();
+					 }catch (IOException e) {
+						 // TODO Auto-generated catch block
+						 e.printStackTrace();
+					 }
+				 }
+			 }
+		 }
+		return "Successfully uploaded";
+/*	 }
+	 @RequestMapping(value="/uploadMutipleFile",method=RequestMethod.POST)
+	 public @ResponseBody String uploadMutipleFileHandler
+*//*	 (@RequestParam("name")String[] @RequestParam("file")MutiplepartFile[]
+			 files){
+		 if(files.length !=names.length)
+*/			 
+		 
+	 }
+			 
+	 
+	
+
+
+}

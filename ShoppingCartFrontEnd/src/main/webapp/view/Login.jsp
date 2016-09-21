@@ -4,13 +4,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>This is Login page</title>
 </head>
 <body>
-This is Login Page
-Enter User Name:<input type="text" ><br>
-Enter User Name:<input type="password" ><br>
-<input type="submit"value="Login">
-
-</body>
+<form:form name="submitForm" method="POST">
+        <div align="center">
+            <table>
+                <tr>
+                    <td>User Name</td>
+                    <td><input type="text" name="userName" /></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="password" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Submit" /></td>
+                </tr>
+            </table>
+            <div style="color: red">${error}</div>
+        </div>
+    </form:form>
 </html>
