@@ -8,79 +8,68 @@
 </head>
 <body>
 
-	${SavedMsg} ${updateMsg} ${ErrorUpdateMsg}
-	<h1>Add Category</h1>
-	<c:url var="addAction" value="category/add"></c:url>
-	<form:form action="${addAction}" commandName="category">
-		<table>
-			<tr>
-				<td><form:label path="id">
-						<spring:message text="ID" />
-					</form:label></td>
+
+<h1>Add Category</h1>
+<c:url var="addAction" value="category/add"></c:url>
+<form:form action="${addAction}" commandName="category">
+<table>
+	<tr>
+			<td><form:label path="cat_id"> <spring:message text="ID"/></form:label></td>
 					<c:choose>
-				<c:when test="${!empty category.id}">
-					<td><form:input path="id" disabled="true" readonly="true" /></td>
-				</c:when>
-
-				<c:otherwise>
-					<td><form:input path="id" pattern="{5,10}" required="true"
-							title="id should be between 5 to 10 characters" /></td>
-				</c:otherwise>
-</c:choose>
+							<c:when test="${!empty category.cat_id}">
+							<td><form:input path="cat_id" readonly="true"/> </td>
+							</c:when>
+									
+							 <c:otherwise>
+							 <td><form:input path="cat_id" pattern="{5,10}" required="true" title="id should be between 5 to 10 characters"/> </td>
+							 </c:otherwise>
+					</c:choose>
 			</tr>
-			<tr>
-				<td><form:label path="name">
-						<spring:message text="name" />
-					</form:label></td>
-				<td><form:input path="name" required="true" /></td>
-			</tr>
+		<tr>
+			<td><form:label path="cat_name"> <spring:message text="NAME"/></form:label></td>
+			<td><form:input path="cat_name" required="true"/> </td>
+		</tr>
+		
+		<tr>
+			<td><form:label path="cat_description"> <spring:message text="DESCRIPTION"/></form:label></td>
+			<td><form:input path="cat_description" required="true"/> </td>
+		</tr>
+		<tr>
+			<td colspan="2">
+			<c:if test="${!empty category.cat_name}">
+			<input type="submit" value="<spring:message text="Edit category"/> "> 
+			</c:if>
+			<c:if test="${empty category.cat_name}">
+			<input type="submit" value="<spring:message text="Add category"/> "> 
+			</c:if>
+			</td>
 
-			<tr>
-				<td><form:label path="description">
-						<spring:message text="description" />
-					</form:label></td>
-				<td><form:input path="description" required="true" /></td>
-			</tr>
-			<tr>
-				<td colspan="2"><c:if test="${!empty category.name}">
-						<input type="submit"
-							value="<spring:message text="Edit category"/> ">
-
-					</c:if> <c:if test="${empty category.name}">
-						<input type="submit"
-							value="<spring:message text="Add category"/> ">
-					</c:if></td>
-
-						
-			</tr>
-		</table>
-	</form:form>
-	<br>
+		</tr>
+</table>
+</form:form>
+<br>
 
 
-	<h3>Category List</h3>
+<h3>Category List</h3>
 	<c:if test="${!empty categoryList}">
 		<table class="tg">
-			<tr>
+		<tr>
 				<th width="80">Category Id</th>
-				<th width="120">Category Name</th>
+				<th	width="120">Category Name</th>
 				<th width="120">Category Description</th>
 				<th width="60">Edit</th>
 				<th width="60">Delete</th>
+		</tr>
+		<c:forEach items="${categoryList}" var="category">
+			<tr>
+				<td>${category.cat_id}</td>
+				<td>${category.cat_name}</td>
+				<td>${category.cat_description}</td>
+				<td><a href="<c:url value="category/update/${category.cat_id}"/>">Edit</a></td>
+				<td><a href="<c:url value="category/remove/${category.cat_id}"/>">Delete</a></td>
 			</tr>
-			<c:forEach items="${categoryList}" var="category">
-				<tr>
-					<td>${category.id}</td>
-					<td>${category.name}</td>
-					<td>${category.description}</td>
-					<td><a href="<c:url value="category/Update/${category.id}"/>">Edit</a></td>
-						<%-- <jsp:include page="edit.jsp"></jsp:include> --%>
-					<td><a href="<c:url value="category/Remove/${category.id}"/>">Delete</a></td>
-				</tr>
-			</c:forEach>
-		
+		</c:forEach>
 		</table>
-	
 	</c:if>
 
 

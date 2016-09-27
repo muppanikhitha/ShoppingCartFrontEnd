@@ -52,7 +52,7 @@ ${RegisterMsg}
 							<form:input path="address"   /><br>
 					
 						
-						<input type="submit" 
+						<input type="submit" class="btn btn-success btn-block"
 							value="Register"/>
 </form:form>
 

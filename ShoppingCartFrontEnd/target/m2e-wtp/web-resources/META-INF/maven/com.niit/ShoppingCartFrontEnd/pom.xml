@@ -14,6 +14,13 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.21</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -40,8 +47,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.niit</groupId>
-	<artifactId>ShoppingCartBackEnd</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+			<artifactId>ShoppingCartBackEnd</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>

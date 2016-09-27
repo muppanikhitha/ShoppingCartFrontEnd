@@ -13,32 +13,23 @@
 <title>Login</title>
 </head>
 <body>
-${LoginMsg}
-	
-				
-					<form:form action="login"  commandName= "userDetails" method="post"  >
-					
-						<div class="form-group">
-						<form:label path="Id">
-								<spring:message text="ID"/>
-						</form:label>
-							<form:input path="id"  /><br>
-					
-						<form:label path="password">
-								 <spring:message text="password"/>
-								</form:label>
-							<form:password  path="password"   />
-						</div>
-						
-						
-						<input type="submit" 
-							value="Login"/>
-						
+	${LoginMsg}<br><br>
+		<form:form action="login" commandName="userDetails" method="post">
+		<table>
 
-					</form:form>
-
-				
+			<tr>
+				<td><form:label path="Id"><spring:message text="ID" /></form:label></td>
+				<td><form:input path="id" /></td>
+			</tr>
 			
-
+			<tr>
+			<td><form:label path="password"><spring:message text="PASSWORD" /></form:label></td>
+			<td><form:password path="password" /></td>
+		</tr>
+	</table>
+	<div >
+		<input type="submit" class="btn btn-success "  value="Login" />
+		</div>
+</form:form>
 </body>
 </html>

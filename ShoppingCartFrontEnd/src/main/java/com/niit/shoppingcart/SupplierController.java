@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.niit.shoppingcart.dao.SupplierDAO;
+
 import com.niit.shoppingcart.model.Supplier;
 
 @Controller
@@ -33,45 +34,51 @@ public class SupplierController {
 		// check if the record exist with this id
 		// if exist, display error message to the admin record already exist
 		// else save the record
-		ModelAndView mv = new ModelAndView("/supplier");
-		if (supplierDAO.get(supplier.getId()) == null) {
+		ModelAndView mv = new ModelAndView();
+		if (supplierDAO.get(supplier.getSup_id()) == null) {
 			supplierDAO.save(supplier);
 		} else {
-			mv.addObject("errorMessage", "The record exist with this id"
-					+ supplier.getId());
-		}
-		return "redirect:/supplier";
-	}
-
-	@RequestMapping(value = "/supplier/update/{id}", method = RequestMethod.POST)
-	public String updateSupplier(@ModelAttribute("supplier") String id) {
-		// check if the record exist with this id
-		// if exist, display error message to the admin record already exist
-		// else save the record
-		ModelAndView mv = new ModelAndView("supplier");
-		if (supplierDAO.get(supplier.getId()) != null) {
 			supplierDAO.update(supplier);
-			mv.addObject("message", "successfully updated");
+		}
+		return "redirect:/manageSuppliers";
+	}
+
+	@RequestMapping(value= "supplier/update/{sup_id}")
+	public String updateCategory(@PathVariable("id") String id ) {
+		//check whether supplier exist with this id?
+		//if exists, update the existing supplier
+		//if doesnot exist display error message
+		System.out.println("i am in updateCategory");
+		//String id=supplier.getId();
+		 supplier=supplierDAO.get(id);
+			System.out.println(supplier.getSup_id());
+		ModelAndView mv = new ModelAndView();
+
+		if (supplierDAO.get(supplier.getSup_id()) != null) {
+			supplierDAO.update(supplier);
+			System.out.println("updated");
 		} else {
-			mv.addObject("errorMessage", "No record exist with this id"
-					+ supplier.getId());
+			mv.addObject("ErrorMessage", "couldnot update the record");
 		}
 		return "redirect:/supplier";
 	}
 
-	@RequestMapping("/supplier/remove/{id}")
-	public ModelAndView deleteCategory(@PathVariable("id") String id)
-			throws Exception {
+
+	@RequestMapping("/supplier/remove/{sup_id}")
+	public String deletesupplier(@PathVariable("id") String id) throws Exception {
 		// if id exist in supplier delete it
 		// else display error message
-		boolean flag = supplierDAO.delete(supplier);
-		ModelAndView mv = new ModelAndView("supplier");
-		String msg = "The operation is successfully done";
-		if (flag == false) {
-			msg = "The operation  could not success";
-		}
-		mv.addObject("msg", msg);
-		return mv;
-	}
+		System.out.println("i am in deletesupplier");
+		System.out.println(id);
+		Supplier supplier = supplierDAO.get(id);
+		ModelAndView mv = new ModelAndView();
 
+		boolean flag = supplierDAO.delete(supplier);
+		if (flag == true) {
+			System.out.println("i am in delete operation");
+		} else {
+			mv.addObject("ErrorMessage", "could not delete the record");
+		}
+		return "redirect:/manageSuppliers";
+	}
 }

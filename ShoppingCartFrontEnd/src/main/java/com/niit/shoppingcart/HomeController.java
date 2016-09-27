@@ -34,7 +34,7 @@ public class HomeController {
 	@RequestMapping("/")
 	public ModelAndView home() {
 		ModelAndView m = new ModelAndView("Home");
-		
+		m.addObject("message", "Hi");
 		// get all categories along with products
 		// you have to integrate with the backend project
 		List<Category> categoryList = categoryDAO.list();
@@ -44,7 +44,7 @@ public class HomeController {
 	
 	@RequestMapping(value="register", method=RequestMethod.POST)
 	public ModelAndView registerUser(@ModelAttribute("userDetails") UserDetails userDetails) {
-		
+		System.out.println("hi");
 		ModelAndView mv = new ModelAndView("/Home");
 		//if(userDetailsDAO.get(userDetails.getId())==null){
 			userDetailsDAO.save(userDetails);

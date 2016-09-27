@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-
+<title>fabGift</title>
 <style>
 </style>
 
@@ -19,8 +19,8 @@
 				<tr>
 					<c:choose>
 						<c:when test="${empty loggedInUser}">
-							<td align="left"><a href="Login">Login</a></td>
-							<td align="center"><a href="Registration">Register</a></td>
+							<td ><a href="Login">Login</a></td>&nbsp;&nbsp;
+							<td><a href="Registration">Register</a></td>
 						</c:when>
 
 						<c:when test="${not empty loggedInUser}">
@@ -103,24 +103,31 @@
 		<div id="admin">
 			<c:if test="${isAdmin==true}">
 				<jsp:include page="adminHome.jsp"></jsp:include>
-			</c:if>
 			
+			</c:if>
 			<div id="categories">
 			<c:if test="${isAdminClickedCategories==true}">
-			<%@ include file="/views/category.jsp" %>
-						
-			</c:if>
-			
-			
-			</div>
-<div id="suppliers">
-			<c:if test="${isAdminClickedSuppliers==true}">
-			<%@ include file="/views/supplier.jsp" %>
-						
+									<jsp:include page="adminHome.jsp"></jsp:include>
+							<%@ include file="/views/category.jsp" %>		
 			</c:if>
 			</div>
+				
+			<div id="product">
+			<c:if test="${isAdminClickedproducts==true}">
+				<jsp:include page="adminHome.jsp"></jsp:include>
+							<%@ include file="/views/Product.jsp" %>	
+			</c:if>
+			</div>			
+			
+			<div id="suppliers">
+			<c:if test="${isAdminClickedsuppliers==true}">
+				<jsp:include page="adminHome.jsp"></jsp:include>
+							<%@ include file="/views/supplier.jsp" %>	
+			</c:if>
+			</div>
+
 		</div>
-	</div>
+	
 
 
 

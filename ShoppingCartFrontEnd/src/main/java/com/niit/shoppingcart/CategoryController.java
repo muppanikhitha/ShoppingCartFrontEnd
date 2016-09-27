@@ -1,6 +1,12 @@
 package com.niit.shoppingcart;
 
 
+
+
+import javax.servlet.http.HttpSession;
+
+import org.h2.engine.Session;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +21,6 @@ import com.niit.shoppingcart.dao.CategoryDAO;
 import com.niit.shoppingcart.model.Category;
 
 @Controller
-
 public class CategoryController {
 
 	@Autowired
@@ -23,11 +28,14 @@ public class CategoryController {
 
 	@Autowired
 	private CategoryDAO categoryDAO;
+	
+	//Logger instance
+ Logger log=Logger.getLogger(CategoryController.class);
 
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String listCategory(Model model) {
 		model.addAttribute("category", category);
-		model.addAttribute("categoryList", this.categoryDAO.list());
+		model.addAttribute("categoryList", categoryDAO.list());
 		return "category";
 	}
 
@@ -38,54 +46,51 @@ public class CategoryController {
 		//else save the record
 		
 		ModelAndView mv = new ModelAndView("/category");
-		if (categoryDAO.get(category.getId()) == null) {
+		if (categoryDAO.get(category.getCat_id()) == null) {
 			categoryDAO.save(category);
-			System.out.println("saved");
-			mv.addObject("SavedMsg", "saved successfully");
 		} else {
-			mv.addObject("errorMessage", "The record exist with this id"
-					+ category.getId());
+		 
+				categoryDAO.update(category);
 		}
-		return "redirect:/category";
+		return "redirect:/manageCategories";
 
 	}
-
-	@RequestMapping(value="category/Update/{id}")
-	public String updateCategory(@PathVariable("id") Category category) {
+	
+	
+	@RequestMapping(value= "category/update/{cat_id}")
+	public String updateCategory(@PathVariable("cat_id") String id ) {
 		//check whether category exist with this id?
 		//if exists, update the existing category
 		//if doesnot exist display error message
-		System.out.println("i am in update method");
-		System.out.println(category.getId());
-		/*category=categoryDAO.get(id);*/
-		ModelAndView mv = new ModelAndView("/category");
-		
-/*		mv.addObject("clickedEdit", true);*/
-		if (categoryDAO.get(category.getId()) != null) {
+		log.debug("Starting of the method update");
+		 category=categoryDAO.get(id);
+		ModelAndView mv = new ModelAndView();
+
+		if (categoryDAO.get(category.getCat_id()) != null) {
 			categoryDAO.update(category);
-			mv.addObject("updateMsg", "successfully updated");
+			log.debug("Ending  of the method update");
 		} else {
-			mv.addObject("ErrorUpdateMsg", "couldnot update the record");
+			mv.addObject("ErrorMessage", "couldnot update the record");
 		}
 		return "redirect:/category";
 	}
 
-	@RequestMapping(value="category/Remove/{id}")
-	public String deleteCategory(@PathVariable("id") String id)
+	@RequestMapping("category/remove/{cat_id}")
+	public String  deleteCategory(@PathVariable("cat_id") String id)
 			throws Exception {
 		//if id exist in category delete it
 		//else display error message
-		System.out.println(id);
-		System.out.println("i am in delete method");
-		category=categoryDAO.get(id);
+	
+		Category category=categoryDAO.get(id);
 		ModelAndView mv = new ModelAndView("category");
-	    
-		boolean flag = categoryDAO.delete(category);
-		String msg = "The operation is successfully done";
-		if (flag == false) {
-			msg = "The operation  could not success";
+	
+	boolean flag=	categoryDAO.delete(category);
+		if(flag==true){
+			System.out.println("i am in delete operation");
 		}
-		mv.addObject("msg", msg);
-		return "redirect:/category";
+		else{
+			mv.addObject("ErrorMessage", "could not delete the record");
+		}
+		return "redirect:/manageCategories";
 	}
 }

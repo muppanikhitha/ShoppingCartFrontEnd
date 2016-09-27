@@ -16,9 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.niit.shoppingcart.dao.CartDAO;
 import com.niit.shoppingcart.dao.CategoryDAO;
+import com.niit.shoppingcart.dao.ProductDAO;
+import com.niit.shoppingcart.dao.SupplierDAO;
 import com.niit.shoppingcart.dao.UserDetailsDAO;
 import com.niit.shoppingcart.model.Cart;
 import com.niit.shoppingcart.model.Category;
+import com.niit.shoppingcart.model.Product;
+import com.niit.shoppingcart.model.Supplier;
 import com.niit.shoppingcart.model.UserDetails;
 
 @Controller
@@ -39,6 +43,15 @@ public class UserDetailsController {
 	Category category;
 
 	@Autowired
+	Supplier supplier;
+	@Autowired
+	Product product;
+	@Autowired
+	ProductDAO productDAO;
+
+	@Autowired
+	SupplierDAO supplierDAO;
+	@Autowired
 	CategoryDAO categoryDAO;
 	
 	@Autowired
@@ -51,6 +64,7 @@ public class UserDetailsController {
 	public ModelAndView login(@RequestParam(value = "id") String id,
 			@RequestParam(value = "password") String password,
 			HttpSession session) {
+		
 		ModelAndView mv = new ModelAndView("/Home");
 
 		boolean isValidUser = userDetailsDAO.isValidUser(id, password);
@@ -63,6 +77,16 @@ public class UserDetailsController {
 			// find out whether the user is admin or not
 			if (userDetails.getRole().equals("ROLE_ADMIN")) {
 				mv.addObject("isAdmin", "true");
+				session.setAttribute("supplier",supplier);
+				session.setAttribute("supplierList",supplierDAO.list());
+				
+				session.setAttribute("category",category);
+				session.setAttribute("categoryList",categoryDAO.list());
+				
+				session.setAttribute("product",product);
+				session.setAttribute("productList",productDAO.list());
+				
+				
 			}
 			else{
 				mv.addObject("isAdmin", "false");

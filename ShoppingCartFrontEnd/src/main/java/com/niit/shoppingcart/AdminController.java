@@ -48,7 +48,7 @@ public class AdminController {
 	public ModelAndView suppliers(){
 		ModelAndView mv=new ModelAndView("/Home");
 		mv.addObject("supplier",supplier);
-		mv.addObject("isAdminClickedSuppliers","true");
+		mv.addObject("isAdminClickedsuppliers","true");
 		mv.addObject("supplierList",supplierDAO.list());
 		return mv;
 		
@@ -56,12 +56,13 @@ public class AdminController {
 	
 	
 	
-	@RequestMapping("/manageproducts")
+	@RequestMapping("/manageProducts")
 	public ModelAndView products(){
 		ModelAndView mv=new ModelAndView("/Home");
 		mv.addObject("product",product);
-		mv.addObject("isAdminClickedProducts","true");
+		mv.addObject("isAdminClickedproducts","true");
 		mv.addObject("productList",productDAO.list());
+	
 		return mv;
 	}
 	
