@@ -27,12 +27,7 @@ import com.niit.shoppingcart.model.UserDetails;
 
 @Controller
 public class UserDetailsController {
-	// when user clicked login based on the credentials i want to find whether
-	// he is admin or not
-	// if he is admin, he has to navigate to adminHomePage
-	// if he is user, he has to navigate to home page
-	// if user does not exist, display error message
-
+	
 	@Autowired
 	UserDetailsDAO userDetailsDAO;
 
@@ -74,7 +69,7 @@ public class UserDetailsController {
 		session.setAttribute("loggedInUserID", userDetails.getId());
 		session.setAttribute("userDetails", userDetails);
 		
-			// find out whether the user is admin or not
+			
 			if (userDetails.getRole().equals("ROLE_ADMIN")) {
 				mv.addObject("isAdmin", "true");
 				session.setAttribute("supplier",supplier);

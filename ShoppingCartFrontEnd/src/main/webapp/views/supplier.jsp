@@ -14,32 +14,32 @@
 <form:form action="${addAction}" commandName="supplier">
 <table>
 	<tr>
-			<td><form:label path="sup_id"> <spring:message text="ID"/></form:label></td>
+			<td><form:label path="supe_id"> <spring:message text="ID"/></form:label></td>
 					<c:choose>
-							<c:when test="${!empty supplier.sup_id}">
-							<td><form:input path="sup_id" readonly="true"/> </td>
+							<c:when test="${!empty supplier.supe_id}">
+							<td><form:input path="supe_id" readonly="true"/> </td>
 							</c:when>
 									
 							 <c:otherwise>
-							 <td><form:input path="sup_id" pattern="{5,10}" required="true" title="id should be between 5 to 10 characters"/> </td>
+							 <td><form:input path="supe_id" pattern="{5,10}" required="true" title="id should be between 5 to 10 characters"/> </td>
 							 </c:otherwise>
 					</c:choose>
 			</tr>
 		<tr>
-			<td><form:label path="sup_name"> <spring:message text="name"/></form:label></td>
-			<td><form:input path="sup_name" required="true"/> </td>
+			<td><form:label path="supe_name"> <spring:message text="name"/></form:label></td>
+			<td><form:input path="supe_name" required="true"/> </td>
 		</tr>
 		
 		<tr>
-			<td><form:label path="sup_address"> <spring:message text="address"/></form:label></td>
-			<td><form:input path="sup_address" required="true"/> </td>
+			<td><form:label path="supe_address"> <spring:message text="address"/></form:label></td>
+			<td><form:input path="supe_address" required="true"/> </td>
 		</tr>
 		<tr>
 			<td colspan="2">
-			<c:if test="${!empty supplier.sup_name}">
+			<c:if test="${!empty supplier.supe_name}">
 			<input type="submit" value="<spring:message text="Edit supplier"/> "> 
 			</c:if>
-			<c:if test="${empty supplier.sup_name}">
+			<c:if test="${empty supplier.supe_name}">
 			<input type="submit" value="<spring:message text="Add supplier"/> "> 
 			</c:if>
 			</td>
@@ -62,11 +62,11 @@
 		</tr>
 		<c:forEach items="${supplierList}" var="supplier">
 			<tr>
-				<td>${supplier.sup_id}</td>
-				<td>${supplier.sup_name}</td>
-				<td>${supplier.sup_address}</td>
-				<td><a href="<c:url value="supplier/update/${supplier.sup_id}"/>">Edit</a></td>
-				<td><a href="<c:url value="supplier/remove/${supplier.sup_id}"/>">Delete</a></td>
+				<td>${supplier.supe_id}</td>
+				<td>${supplier.supe_name}</td>
+				<td>${supplier.supe_address}</td>
+				<td><a href="<c:url value="supplier/update/${supplier.supe_id}"/>">Edit</a></td>
+				<td><a href="<c:url value="supplier/remove/${supplier.supe_id}"/>">Delete</a></td>
 			</tr>
 		</c:forEach>
 		</table>

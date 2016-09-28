@@ -20,6 +20,7 @@ import com.niit.shoppingcart.dao.SupplierDAO;
 import com.niit.shoppingcart.model.Category;
 import com.niit.shoppingcart.model.Product;
 import com.niit.shoppingcart.model.Supplier;
+import com.niit.shoppingcart.util.FileUtil;
 
 
 
@@ -53,25 +54,25 @@ public class ProductController {
 
 	}
 	@RequestMapping(value="product/add",method=RequestMethod.POST)
-	public String addProduct(@ModelAttribute("product") Product product/*@RequestParam("image")MultipartFile file*/){
-/*                  Category category=categoryDAO.getByName(product.getCategory().getCat_name());
-               Supplier supplier=supplierDAO.getByName(product.getSupplier().getSup_name());
+	public String addProduct(@ModelAttribute("product") Product product,@RequestParam("image")MultipartFile file, String path){
+              Category category=categoryDAO.getByName(product.getCategory().getCaty_name());
+               Supplier supplier=supplierDAO.getByName(product.getSupplier().getSupe_name());
                   product.setCategory(category);
-               product.setSupplier(supplier);*/
-     /*          product.setCategory_id(category.getCat_id());
-               product.setSupplier_id(supplier.getSup_id());*/
-              if (productDAO.get(product.getPro_id()) == null) {
+               product.setSupplier(supplier);
+             product.setCatey_id(category.getCaty_id());
+               product.setSuppr_id(supplier.getSupe_id());
+              if (productDAO.get(product.getPrt_id()) == null) {
        			productDAO.save(product);
        		} else {
        			
        				productDAO.update(product);
        		}
-          //        FileUtil.upload(Path, file, product.getId()+".jpg");           
+                 FileUtil.upload(path, file, product.getPrt_id()+".jpg");           
                   return "redirect:/manageProducts";
 	}
 	 	
-	@RequestMapping("product/remove/{pro_id}")
-	public String removeProduct(@PathVariable("pro_id") String id)
+	@RequestMapping("product/remove/{prt_id}")
+	public String removeProduct(@PathVariable("prt_id") String id)
 	{
 		System.out.println("in delete method");
 		Product product=productDAO.get(id);
@@ -87,13 +88,13 @@ public class ProductController {
 		return "redirect:/manageProducts";
 		
 	}
-	@RequestMapping("product/edit/{pro_id}")
-	public String removeProduct(@PathVariable("pro_id") String id,Model model){
+	@RequestMapping("product/edit/{prt_id}")
+	public String removeProduct(@PathVariable("prt_id") String id,Model model){
 		System.out.println(id);
 		product=productDAO.get(id);
 		ModelAndView mv = new ModelAndView();
 
-		if (productDAO.get(product.getPro_id()) != null) {
+		if (productDAO.get(product.getPrt_id()) != null) {
 			productDAO.update(product);
 			System.out.println("i am in update");
 			//log.debug("Ending  of the method update");
@@ -103,8 +104,8 @@ public class ProductController {
 		return "redirect:/product";
 
 	}
-	/*@RequestMapping("product/get/{pro_id}")
-	public String getSelectedProduct(@PathVariable("pro_id") String id,Model model,
+	/*@RequestMapping("product/get/{prt_id}")
+	public String getSelectedProduct(@PathVariable("prt_id") String id,Model model,
 		  RedirectAttributes redirectAttributes){
 		   redirectAttributes.addFlashAttribute("selectedProduct", productDAO.get(id));
 			return "Product";

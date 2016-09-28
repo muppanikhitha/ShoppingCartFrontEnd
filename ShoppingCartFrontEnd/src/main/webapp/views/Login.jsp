@@ -28,7 +28,7 @@
 		</tr>
 	</table>
 	<div >
-		<input type="submit" class="btn btn-success "  value="Login" />
+		<input type="submit"  value="Login" />
 		</div>
 </form:form>
 </body>

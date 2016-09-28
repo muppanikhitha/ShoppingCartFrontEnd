@@ -4,12 +4,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-<title>fabGift</title>
+<title>gadz</title>
 <style>
 </style>
 
 </head>
-<body style="background-color: #f7f7f7;">
+<body style="background-color:lightblue;">
 
 	<div>
 		<div data-role="header" data-position="fixed">

@@ -31,11 +31,8 @@ public class SupplierController {
 
 	@RequestMapping(value = "/supplier/add", method = RequestMethod.POST)
 	public String addSupplier(@ModelAttribute("supplier") Supplier supplier) {
-		// check if the record exist with this id
-		// if exist, display error message to the admin record already exist
-		// else save the record
-		ModelAndView mv = new ModelAndView();
-		if (supplierDAO.get(supplier.getSup_id()) == null) {
+		ModelAndView mv = new ModelAndView("/supplier");
+		if (supplierDAO.get(supplier.getSupe_id()) == null) {
 			supplierDAO.save(supplier);
 		} else {
 			supplierDAO.update(supplier);
@@ -43,18 +40,15 @@ public class SupplierController {
 		return "redirect:/manageSuppliers";
 	}
 
-	@RequestMapping(value= "supplier/update/{sup_id}")
-	public String updateCategory(@PathVariable("id") String id ) {
-		//check whether supplier exist with this id?
-		//if exists, update the existing supplier
-		//if doesnot exist display error message
+	@RequestMapping(value= "supplier/update/{supe_id}")
+	public String updateCategory(@PathVariable("supe_id") String id ) {
 		System.out.println("i am in updateCategory");
 		//String id=supplier.getId();
 		 supplier=supplierDAO.get(id);
-			System.out.println(supplier.getSup_id());
+			System.out.println(supplier.getSupe_id());
 		ModelAndView mv = new ModelAndView();
 
-		if (supplierDAO.get(supplier.getSup_id()) != null) {
+		if (supplierDAO.get(supplier.getSupe_id()) != null) {
 			supplierDAO.update(supplier);
 			System.out.println("updated");
 		} else {
@@ -64,10 +58,8 @@ public class SupplierController {
 	}
 
 
-	@RequestMapping("/supplier/remove/{sup_id}")
-	public String deletesupplier(@PathVariable("id") String id) throws Exception {
-		// if id exist in supplier delete it
-		// else display error message
+	@RequestMapping("/supplier/remove/{supe_id}")
+	public String deletesupplier(@PathVariable("supe_id") String id) throws Exception {
 		System.out.println("i am in deletesupplier");
 		System.out.println(id);
 		Supplier supplier = supplierDAO.get(id);

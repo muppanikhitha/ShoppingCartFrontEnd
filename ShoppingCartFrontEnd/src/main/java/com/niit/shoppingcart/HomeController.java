@@ -17,12 +17,10 @@ import com.niit.shoppingcart.model.UserDetails;
 @Controller
 public class HomeController {
 
-	/*
-	 * @RequestMapping("/") public String homePage(){ return "Home" }
-	 */
+	
 
 	@Autowired
-	// to inject the object in the home controller automatically
+	
 	CategoryDAO categoryDAO;
 	
 	@Autowired
@@ -35,8 +33,7 @@ public class HomeController {
 	public ModelAndView home() {
 		ModelAndView m = new ModelAndView("Home");
 		m.addObject("message", "Hi");
-		// get all categories along with products
-		// you have to integrate with the backend project
+		
 		List<Category> categoryList = categoryDAO.list();
 		m.addObject("categoryList", categoryList);
 		return m;
@@ -46,13 +43,13 @@ public class HomeController {
 	public ModelAndView registerUser(@ModelAttribute("userDetails") UserDetails userDetails) {
 		System.out.println("hi");
 		ModelAndView mv = new ModelAndView("/Home");
-		//if(userDetailsDAO.get(userDetails.getId())==null){
+		if(userDetailsDAO.get(userDetails.getId())==null){
 			userDetailsDAO.save(userDetails);
 			mv.addObject("SuccessMessage","You are successfully register");
-		//}
-		//else{
-		//	mv.addObject("failureMessage","user exist  with  this id");
-		//}
+	}
+	else{
+			mv.addObject("failureMessage","user exist  with  this id");
+		}
 		return mv;
 	}
 	

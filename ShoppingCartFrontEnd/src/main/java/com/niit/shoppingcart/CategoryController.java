@@ -41,12 +41,9 @@ public class CategoryController {
 
 	@RequestMapping(value = "category/add", method = RequestMethod.POST)
 	public String addCategory(@ModelAttribute("category") Category category) {
-		//check if the record exist with this id
-		//if exist, display error message to the admin record already  exist
-		//else save the record
 		
 		ModelAndView mv = new ModelAndView("/category");
-		if (categoryDAO.get(category.getCat_id()) == null) {
+		if (categoryDAO.get(category.getCaty_id()) == null) {
 			categoryDAO.save(category);
 		} else {
 		 
@@ -57,16 +54,14 @@ public class CategoryController {
 	}
 	
 	
-	@RequestMapping(value= "category/update/{cat_id}")
-	public String updateCategory(@PathVariable("cat_id") String id ) {
-		//check whether category exist with this id?
-		//if exists, update the existing category
-		//if doesnot exist display error message
+	@RequestMapping(value= "category/update/{caty_id}")
+	public String updateCategory(@PathVariable("caty_id") String id ) {
+	
 		log.debug("Starting of the method update");
 		 category=categoryDAO.get(id);
 		ModelAndView mv = new ModelAndView();
 
-		if (categoryDAO.get(category.getCat_id()) != null) {
+		if (categoryDAO.get(category.getCaty_id()) != null) {
 			categoryDAO.update(category);
 			log.debug("Ending  of the method update");
 		} else {
@@ -75,11 +70,10 @@ public class CategoryController {
 		return "redirect:/category";
 	}
 
-	@RequestMapping("category/remove/{cat_id}")
-	public String  deleteCategory(@PathVariable("cat_id") String id)
+	@RequestMapping("category/remove/{caty_id}")
+	public String  deleteCategory(@PathVariable("caty_id") String id)
 			throws Exception {
-		//if id exist in category delete it
-		//else display error message
+		
 	
 		Category category=categoryDAO.get(id);
 		ModelAndView mv = new ModelAndView("category");

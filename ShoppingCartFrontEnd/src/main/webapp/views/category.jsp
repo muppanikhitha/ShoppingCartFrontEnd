@@ -14,32 +14,32 @@
 <form:form action="${addAction}" commandName="category">
 <table>
 	<tr>
-			<td><form:label path="cat_id"> <spring:message text="ID"/></form:label></td>
+			<td><form:label path="caty_id"> <spring:message text="ID"/></form:label></td>
 					<c:choose>
-							<c:when test="${!empty category.cat_id}">
-							<td><form:input path="cat_id" readonly="true"/> </td>
+							<c:when test="${!empty category.caty_id}">
+							<td><form:input path="caty_id" readonly="true"/> </td>
 							</c:when>
 									
 							 <c:otherwise>
-							 <td><form:input path="cat_id" pattern="{5,10}" required="true" title="id should be between 5 to 10 characters"/> </td>
+							 <td><form:input path="caty_id" pattern="{5,10}" required="true" title="id should be between 5 to 10 characters"/> </td>
 							 </c:otherwise>
 					</c:choose>
 			</tr>
 		<tr>
-			<td><form:label path="cat_name"> <spring:message text="NAME"/></form:label></td>
-			<td><form:input path="cat_name" required="true"/> </td>
+			<td><form:label path="caty_name"> <spring:message text="NAME"/></form:label></td>
+			<td><form:input path="caty_name" required="true"/> </td>
 		</tr>
 		
 		<tr>
-			<td><form:label path="cat_description"> <spring:message text="DESCRIPTION"/></form:label></td>
-			<td><form:input path="cat_description" required="true"/> </td>
+			<td><form:label path="caty_description"> <spring:message text="DESCRIPTION"/></form:label></td>
+			<td><form:input path="caty_description" required="true"/> </td>
 		</tr>
 		<tr>
 			<td colspan="2">
-			<c:if test="${!empty category.cat_name}">
+			<c:if test="${!empty category.caty_name}">
 			<input type="submit" value="<spring:message text="Edit category"/> "> 
 			</c:if>
-			<c:if test="${empty category.cat_name}">
+			<c:if test="${empty category.caty_name}">
 			<input type="submit" value="<spring:message text="Add category"/> "> 
 			</c:if>
 			</td>
@@ -62,11 +62,11 @@
 		</tr>
 		<c:forEach items="${categoryList}" var="category">
 			<tr>
-				<td>${category.cat_id}</td>
-				<td>${category.cat_name}</td>
-				<td>${category.cat_description}</td>
-				<td><a href="<c:url value="category/update/${category.cat_id}"/>">Edit</a></td>
-				<td><a href="<c:url value="category/remove/${category.cat_id}"/>">Delete</a></td>
+				<td>${category.caty_id}</td>
+				<td>${category.caty_name}</td>
+				<td>${category.caty_description}</td>
+				<td><a href="<c:url value="category/update/${category.caty_id}"/>">Edit</a></td>
+				<td><a href="<c:url value="category/remove/${category.caty_id}"/>">Delete</a></td>
 			</tr>
 		</c:forEach>
 		</table>

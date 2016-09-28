@@ -13,38 +13,43 @@ ${msg}
 <form:form action="${addAction}" commandName="product">
 <table>
 	<tr>
-			<td><form:label path="pro_id"> <spring:message text="ID"/></form:label></td>
+			<td><form:label path="prt_id"> <spring:message text="ID"/></form:label></td>
 					<c:choose>
-							<c:when test="${!empty product.pro_id}">
-							<td><form:input path="pro_id" readonly="true"/> </td>
+							<c:when test="${!empty product.prt_id}">
+							<td><form:input path="prt_id" readonly="true"/> </td>
 							</c:when>
 									
 							 <c:otherwise>
-							 <td><form:input path="pro_id" pattern="{5,10}" required="true" title="id should be between 5 to 10 characters"/> </td>
+							 <td><form:input path="prt_id" pattern="{5,10}" required="true" title="id should be between 5 to 10 characters"/> </td>
 							 </c:otherwise>
 					</c:choose>
 			</tr>
 		<tr>
-			<td><form:label path="pro_name"> <spring:message text="NAME"/></form:label></td>
-			<td><form:input path="pro_name" required="true"/> </td>
+			<td><form:label path="prt_name"> <spring:message text="NAME"/></form:label></td>
+			<td><form:input path="prt_name" required="true"/> </td>
 		</tr>
 		
 		<tr>
-			<td><form:label path="pro_description"> <spring:message text="DESCRIPTION"/></form:label></td>
-			<td><form:input path="pro_description" required="true"/> </td>
+			<td><form:label path="prt_description"> <spring:message text="DESCRIPTION"/></form:label></td>
+			<td><form:input path="prt_description" required="true"/> </td>
 		</tr>
 		
 		<tr>
-			<td><form:label path="pro_price"> <spring:message text="PRICE"/></form:label></td>
-			<td><form:input path="pro_price" required="true"/> </td>
+			<td><form:label path="prt_price"> <spring:message text="PRICE"/></form:label></td>
+			<td><form:input path="prt_price" required="true"/> </td>
 		</tr>
-							
+			<tr>
+					<td>Image:</td>
+					<td><form:input type="file"
+							class=" btn btn-default btn-block form-control" path="image"
+							required="true" /></td>
+				</tr> 				
 	       <tr>
 	  <td><form:label path="supplier"><spring:message text="Supplier"/></form:label></td>
 	  
-	  <td><form:select path="supplier_id">
+	  <td><form:select path="suppr_id">
 	           <c:forEach items="${supplierList}" var="supplier">
-								<form:option class="input1" value="${supplier.sup_id}">${supplier.sup_name}</form:option>
+								<form:option class="input1" value="${supplier.supe_id}">${supplier.supe_name}</form:option>
 							</c:forEach>
 							</form:select>
 							</td>
@@ -52,19 +57,19 @@ ${msg}
 	           
 	       <tr>
 	  <td><form:label path="category"><spring:message text="Category"/></form:label></td>
-	  <td><form:select path="category_id"  >
+	  <td><form:select path="catey_id"  >
 	           <c:forEach items="${categoryList}" var="category">
-								<form:option class="input1" value="${category.cat_id}">${category.cat_name}</form:option>
+								<form:option class="input1" value="${category.caty_id}">${category.caty_name}</form:option>
 							</c:forEach>
 							</form:select>
 							</td>
 	           </tr> 
 		<tr>
 			<td colspan="2">
-			<c:if test="${!empty product.pro_name}">
+			<c:if test="${!empty product.prt_name}">
 			<input type="submit" value="<spring:message text="Edit product"/> "> 
 			</c:if>
-			<c:if test="${empty product.pro_name}">
+			<c:if test="${empty product.prt_name}">
 			<input type="submit" value="<spring:message text="Add product"/> "> 
 			</c:if>
 			</td>
@@ -83,7 +88,8 @@ ${msg}
 		<th > Product Id</th>
 		<th >Product Name</th>
 		<th >Product Description</th>
-				<th>Product Description</th>
+				<th>Product Price</th>
+				<th>image</th>
 					<th>Category</th>
 						<th>Supplier</th>
 		<th>Edit</th>
@@ -91,14 +97,17 @@ ${msg}
 	</tr>
 	<c:forEach items="${productList}" var="product">
 		<tr>
-			<td>${product.pro_id}</td>
-			<td>${product.pro_name}</td>
-			<td>${product.pro_description}</td>
-			<td>${product.pro_price}</td>
-			<td>${product.category_id}<td>
-			<td>${product.supplier_id} </td>
-			<td><a href="<c:url value="product/edit/${product.pro_id}"/>" >Edit</a></td>
-			<td><a href="<c:url value="product/remove/${product.pro_id}"/>" >Delete</a></td>
+			<td>${product.prt_id}</td>
+			<td>${product.prt_name}</td>
+			<td>${product.prt_description}</td>
+			<td>${product.prt_price}</td>
+			<td>${product.catey_id}<td>
+			<td>${product.suppr_id} </td>
+			<img height="100px" width="100px" alt="${product.prt_id }"
+									src="<c:url value="/resources/images/${product.prt_id }.jpg"></c:url>">
+							</div>
+			<td><a href="<c:url value="product/edit/${product.prt_id}"/>" >Edit</a></td>
+			<td><a href="<c:url value="product/remove/${product.prt_id}"/>" >Delete</a></td>
 		</tr>
 	</c:forEach>
 	</table>
